@@ -16,6 +16,7 @@ Read this file fully before acting. Your role skill (`/skill:role-*`) tells you 
 - iOS only for now. Widgets: Swift via `expo-apple-targets`. Alarms: AlarmKit (iOS 26+) — see SPIKE.md.
 - RevenueCat for purchases, PostHog for analytics, no backend by default
 - Localization: uz (default), ru, en — every user-facing string goes through i18n, never hard-coded
+  - Exception: **getup** — en is the default and the only v1 language; ru/uz arrive in v2 (human decision 2026-11-19, see `apps/getup/docs/BRIEF.md`)
 - Builds: EAS Build -> EAS Submit -> TestFlight
 
 ## Where things live
