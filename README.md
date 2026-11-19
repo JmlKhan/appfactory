@@ -4,9 +4,9 @@
 
 | Role | Launcher | Model |
 |---|---|---|
-| Architect | `.\agents\architect.ps1 -App <app>` | Claude Opus (subscription) |
+| Architect | `.\agents\architect.ps1 -App <app>` | Claude Code, Opus (plan limits) |
 | Builder ×1–4 | `.\agents\builder.ps1 -App <app> -Task T-xxx [-Model pro\|flash\|kimi\|opus]` | DeepSeek V4 Pro (default) |
-| Reviewer | `.\agents\reviewer.ps1 -App <app>` | Claude Opus (subscription) |
+| Reviewer | `.\agents\reviewer.ps1 -App <app>` | Claude Code, Opus (plan limits) |
 | Vision helper | called by agents via `pi -p` | Gemini 3 Flash |
 
 ## One-time setup

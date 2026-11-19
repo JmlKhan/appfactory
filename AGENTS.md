@@ -6,9 +6,9 @@ Read this file fully before acting. Your role skill (`/skill:role-*`) tells you 
 ## Team
 | Role | Model | Does |
 |---|---|---|
-| Architect | Claude Opus (subscription) | brief, design system, spec, task plan, store prep, launch content |
+| Architect | Claude Opus in Claude Code (plan limits) | brief, design system, spec, task plan, store prep, launch content |
 | Builder (1–4 parallel) | DeepSeek V4 Pro (Flash for small tasks) via OpenRouter | screens, features, spikes — one task per worktree |
-| Reviewer | Claude Opus (subscription) | reviews diffs, merges or rejects, writes QA checklists |
+| Reviewer | Claude Opus in Claude Code (plan limits) | reviews diffs, merges or rejects, writes QA checklists |
 | Vision helper | Gemini 3 Flash via `pi -p` | reads screenshots/images when asked |
 
 ## Stack (fixed — do not change without the human's approval)
