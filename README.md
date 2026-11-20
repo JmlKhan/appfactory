@@ -1,6 +1,6 @@
 # App Factory — agent team
 
-3 roles, 14 skills, one git repo. Run each agent in its own herdr pane.
+3 roles, 15 skills, one git repo. Run each agent in its own herdr pane.
 
 | Role | Launcher | Model |
 |---|---|---|
@@ -29,7 +29,7 @@ Then in herdr:
 
 | Pane | Command | You do |
 |---|---|---|
-| 1 Architect | `.\agents\architect.ps1 -App alarm-uz` | `/skill:redesign-brief` -> approve -> `/skill:design-system` -> approve -> `/skill:spec-writer` -> approve -> `/skill:task-planner` |
+| 1 Architect | `.\agents\architect.ps1 -App alarm-uz` | `/skill:redesign-brief` -> approve -> `/skill:design-system` -> approve -> `/skill:mockups` (design in Claude Design, export handoff to docs\mockups) -> approve -> `/skill:spec-writer` -> approve -> `/skill:task-planner` |
 | 2 Builder (spike) | `.\agents\builder.ps1 -App alarm-uz -Task SPIKE-1 -Model opus` then `/skill:tech-spike` | Run the EAS dev build on your iPhone, report results |
 | 2–5 Builders | `.\agents\builder.ps1 -App alarm-uz -Task T-001` (one per task in the current wave) | Watch herdr for "blocked" |
 | 6 Reviewer | `.\agents\reviewer.ps1 -App alarm-uz` | Read one-line verdicts; run `/skill:qa` at the end |

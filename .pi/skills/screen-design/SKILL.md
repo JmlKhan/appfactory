@@ -1,11 +1,14 @@
 ---
 name: screen-design
-description: Builder skill — implement approved flows as real Expo screens with mock data, using only DESIGN.md tokens, so the human can review the design on their iPhone.
+description: Builder skill — implement the APPROVED HTML mockups as real Expo screens with mock data, using only DESIGN.md tokens, so the human can check them on their iPhone.
 ---
 
-# Screen design (design in code)
+# Screen design (mockups -> code)
 
-Inputs: `docs/BRIEF.md`, `docs/DESIGN.md`, `docs/FLOWS.md`, `app/src/theme/theme.ts`, the task's screen list.
+Precondition: `docs/mockups/` exists and the human approved it. If not, stop and say so.
+
+Inputs: the Claude Design handoff/HTML in `docs/mockups/` + `docs/mockups/NOTES.md` (layout source of truth), `docs/DESIGN.md` + `app/src/theme/theme.ts` (tokens), `docs/BRIEF.md`, the task's screen list.
+Match the mockups exactly — spacing, hierarchy, copy (all three languages). If something can't be built as drawn on iOS, implement the closest version and list the difference in your handoff.
 Output: screens under `app/app/` (Expo Router) + reusable components under `app/src/components/`, all on mock data.
 
 ## Rules

@@ -16,7 +16,6 @@ Read this file fully before acting. Your role skill (`/skill:role-*`) tells you 
 - iOS only for now. Widgets: Swift via `expo-apple-targets`. Alarms: AlarmKit (iOS 26+) — see SPIKE.md.
 - RevenueCat for purchases, PostHog for analytics, no backend by default
 - Localization: uz (default), ru, en — every user-facing string goes through i18n, never hard-coded
-  - Exception: **getup** — en is the default and the only v1 language; ru/uz arrive in v2 (human decision 2026-11-19, see `apps/getup/docs/BRIEF.md`)
 - Builds: EAS Build -> EAS Submit -> TestFlight
 
 ## Where things live
@@ -24,7 +23,8 @@ Read this file fully before acting. Your role skill (`/skill:role-*`) tells you 
 apps/<app>/docs/       # the contract between agents
   FLOWS.md             # teardown of the reference app (input)
   BRIEF.md             # Architect  — what we build and why
-  DESIGN.md            # Architect  — design system (source of truth for UI)
+  DESIGN.md            # Architect  — design system (source of truth for tokens)
+  mockups/             # Human via Claude Design (+ Architect NOTES/PROMPTS) — source of truth for layout
   SPIKE.md             # Builder    — technical feasibility results
   SPEC.md              # Architect  — full product/tech spec
   TASKS.md             # Architect  — task list with status
@@ -38,14 +38,17 @@ apps/<app>/app/        # the Expo project
 ## Pipeline and gates
 1. redesign-brief -> **GATE: human approves BRIEF.md**
 2. design-system -> **GATE: human approves DESIGN.md**
-3. tech-spike (runs in parallel with 2) -> **GATE: works on human's iPhone**
-4. screen-design -> **GATE: human approves screens on iPhone**
-5. spec-writer -> **GATE: human approves SPEC.md**
-6. task-planner -> TASKS.md
-7. builder <-> reviewer loop until all tasks are `done`
-8. qa -> **GATE: human passes device test**
-9. store-prep -> **GATE: human approves STORE.md**
-10. release (human runs EAS submit) and launch-content
+3. mockups — Architect writes the Claude Design prompt pack; human designs in Claude Design (round 1 key screens, round 2 all) and exports the handoff into docs/mockups/ -> **GATE: human approves docs/mockups/**
+4. tech-spike (runs in parallel with 2–3) -> **GATE: works on human's iPhone**
+5. screen-design (builders implement the approved mockups in Expo) -> **GATE: human approves screens on iPhone**
+6. spec-writer -> **GATE: human approves SPEC.md**
+7. task-planner -> TASKS.md
+8. builder <-> reviewer loop until all tasks are `done`
+9. qa -> **GATE: human passes device test**
+10. store-prep -> **GATE: human approves STORE.md**
+11. release (human runs EAS submit) and launch-content
+
+No app code (except tech-spike) before the mockups are approved.
 
 At a GATE: stop, summarize in ≤10 lines what you produced and what you need decided. Never pass a gate yourself.
 
