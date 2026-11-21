@@ -1,13 +1,14 @@
 # DESIGN — getup ("Daybreak")
 
-> Status: **APPROVED by human 2026-11-19.** Source of truth for all UI. Tokens are mirrored exactly in `app/src/theme/theme.ts`.
+> Status: **APPROVED by human 2026-11-19.** Colours replaced by human decision 2026-11-20 (final): green `#007E14` primary, orange `#E26150` brand, native iOS base. Source of truth for all UI. Tokens are mirrored exactly in `app/src/theme/theme.ts`.
 > Builders: use tokens only. No raw hex, no raw font sizes, no magic spacing numbers in screens.
 
 ## 1. Brand
 
 - **Name:** getup (always lowercase in the wordmark; "getup" in running text).
-- **Concept:** the moment night turns into sunrise. The UI lives in deep indigo night; actions glow like the sun coming up.
+- **Concept:** the moment night turns into sunrise. The UI sits on the native iOS black/grey base; the brand orange is the rising sun, and green means "go".
 - **Personality:** **bright, bold, encouraging.**
+- **Logo / app icon (final, human 2026-11-20):** `docs/brand/getup-icon.svg` (master) and `docs/brand/getup-icon-1024.png` (App Store / Expo `icon`). A tilted, ringing bell in brand orange `#E26150` with two green `#007E14` sound arcs, on black `#000000`. Use the files as they are: never redraw, recolour or add text to the mark. The wordmark "getup" (Unbounded 700, lowercase) sits beside or below it, in `text`.
 - **Default theme:** dark (phones are used in dark bedrooms). Light theme is a full equal option in Settings.
 
 ### Tone of voice
@@ -32,48 +33,71 @@
 
 Semantic tokens. Contrast ratios are WCAG 2.1 and were calculated, not estimated.
 
+Two accent colours, each with one job:
+- **primary green `#007E14` = action + selection.** Filled buttons (white text), toggles on, selected chips/radios/plan, success ticks.
+- **brand orange `#E26150` = identity + attention.** Active tab, icons, highlights, Pro tag, ringing screen, progress bars and countdown rings. Text on filled orange is always **black**.
+
 | Token | Dark (default) | Light | Use |
 |---|---|---|---|
-| background | `#0F1230` | `#FFF8F0` | screen background |
-| surface | `#1A1F4A` | `#FFFFFF` | cards, sheets, list groups |
-| surfaceAlt | `#252B5E` | `#FFEEDC` | inputs, chips, pressed rows, nested cards |
-| text | `#F5F3FF` | `#14173A` | primary text |
-| textMuted | `#A9ADD6` | `#555A80` | secondary text, captions |
-| primary | `#FF9F1C` | `#FF9F1C` | primary button fill, active toggle, selected plan, progress fill |
-| onPrimary | `#1A1206` | `#1A1206` | text/icons on primary |
-| primaryText | `#FFB347` | `#A84E00` | primary-coloured **text/icons** on background (links, selected tab) |
-| accent | `#FFC8A2` | `#E8743B` | decorative highlights, badges, illustration. **Light: not for text** (fails AA). |
-| success | `#3DDC97` | `#17744B` | success states, "done" ticks |
-| warning | `#FFD166` | `#8A5600` | warnings ("won't ring") |
-| danger | `#FF6B6B` | `#B32D2D` | destructive actions, errors |
-| onDanger | `#1A1206` | `#FFFFFF` | text on danger fill |
-| border | `#2F3670` | `#EADFD2` | hairlines, card outlines (decorative, not text) |
-| overlay | `rgba(6,8,24,0.64)` | `rgba(20,23,58,0.40)` | scrim behind sheets/modals |
+| background | `#000000` | `#F2F2F7` | screen background (native iOS grouped base) |
+| surface | `#1C1C1E` | `#FFFFFF` | cards, sheets, list groups |
+| surfaceAlt | `#2C2C2E` | `#E5E5EA` | inputs, chips off, pressed rows, nested cards |
+| text | `#FFFFFF` | `#000000` | primary text |
+| textMuted | `#98989F` | `#636366` | secondary text, captions |
+| primary | `#007E14` | `#007E14` | filled button, toggle on, selected chip/radio/plan, success fill/icon |
+| onPrimary | `#FFFFFF` | `#FFFFFF` | text/icons on primary |
+| brand | `#E26150` | `#E26150` | active tab icon, icons, highlights, progress fill, countdown ring, Pro tag fill, ringing |
+| onBrand | `#000000` | `#000000` | text/icons on brand fill |
+| brandText | `#E26150` | `#B23A2A` | orange **text** (links, ghost buttons, selected tab label, "Rings in…") |
+| brandTint | `rgba(226,97,80,0.16)` | `rgba(226,97,80,0.12)` | soft highlight behind selected/hero cards |
+| success | `#007E14` | `#007E14` | success ticks and fills (= primary) |
+| warning | `#FFD60A` | `#8A5600` | warnings ("won't ring") |
+| danger | `#FF453A` | `#D70015` | destructive actions, errors |
+| onDanger | `#000000` | `#FFFFFF` | text on danger fill |
+| border | `#38383A` | `#C6C6C8` | hairlines, card outlines (decorative, not text) |
+| overlay | `rgba(0,0,0,0.60)` | `rgba(0,0,0,0.30)` | scrim behind sheets/modals |
+
+**Text rules (hard):**
+1. **No green text in dark mode** (green on black = 3.99, fails AA for small text). In dark, success/positive text uses `text`; the green appears only as the icon/fill beside it. Green text is allowed in light mode only on `background`/`surface`, never on `surfaceAlt`.
+2. **No `brand` as small text in light mode** (3.47 on white). Use `brandText` (`#B23A2A`). Orange icons ≥ 20pt may use `brand` in both themes (≥ 3:1 for UI graphics).
+3. In dark, `brandText` is not used on `surfaceAlt` (4.02). Use it on `background` or `surface`.
+4. Filled orange → black text. Filled green → white text. Never the other way round (white on orange = 3.47 ❌).
+5. `danger` and `brand` are close in hue. Errors must always carry an icon + text; orange is never used to mean "error".
 
 **Gradients** (ringing, onboarding hero, paywall header, mission complete):
-- `sunrise`: `#0F1230` → `#3A2A6B` → `#FF7A45` → `#FFB347` (top → bottom, stops 0 / 0.45 / 0.8 / 1)
-- `dawn` (subtle, for cards): `#1A1F4A` → `#2A2560`
+- `ember` dark: `#000000` → `#2A0F0B` → `#E26150` (top → bottom, stops 0 / 0.5 / 1)
+- `ember` light: `#FFFFFF` → `#F9D3CD` → `#E26150` (stops 0 / 0.5 / 1)
+- Text over `ember`: dark uses `text` (white) and sits in the top 50%; light uses `text` (black) and may sit anywhere. Any text on the bottom (orange) part is black.
 
-### Contrast check (text on background, ≥ 4.5:1 required)
+### Contrast check (WCAG 2.1, calculated; ≥ 4.5:1 for text)
 | Pair | Dark | Light |
 |---|---|---|
-| text / background | 16.66 ✅ | 16.43 ✅ |
-| text / surfaceAlt | 12.07 ✅ | 15.26 ✅ |
-| textMuted / background | 8.38 ✅ | 6.31 ✅ |
-| textMuted / surfaceAlt | 6.08 ✅ | 5.86 ✅ |
-| primaryText / background | 10.26 ✅ | 5.31 ✅ |
-| primaryText / surfaceAlt | 7.44 ✅ | 4.93 ✅ |
-| onPrimary / primary | 9.03 ✅ | 9.03 ✅ |
-| success / background | 10.34 ✅ | 5.48 ✅ |
-| warning / background | 12.67 ✅ | 5.84 ✅ |
-| danger / background | 6.58 ✅ | 5.99 ✅ |
-| onDanger / danger | 6.68 ✅ | 6.31 ✅ |
-| accent / background | 12.21 ✅ | 2.85 ❌ (decorative only in light) |
-
-Text over the `sunrise` gradient is always `#F5F3FF` and sits in the top (indigo) 45%. A builder must never place text over the orange stops.
+| text / background | 21.0 ✅ | 18.82 ✅ |
+| text / surface | 17.01 ✅ | 21.0 ✅ |
+| text / surfaceAlt | 13.94 ✅ | 16.73 ✅ |
+| textMuted / background | 7.33 ✅ | 5.37 ✅ |
+| textMuted / surface | 5.94 ✅ | 5.99 ✅ |
+| textMuted / surfaceAlt | 4.86 ✅ | 4.77 ✅ |
+| onPrimary / primary (white on green) | 5.26 ✅ | 5.26 ✅ |
+| onBrand / brand (black on orange) | 6.06 ✅ | 6.06 ✅ |
+| brandText / background | 6.06 ✅ | 5.33 ✅ |
+| brandText / surface | 4.91 ✅ | 5.95 ✅ |
+| brandText / surfaceAlt | 4.02 ❌ (don't) | 4.74 ✅ |
+| primary as text / background | 3.99 ❌ (rule 1) | 4.71 ✅ |
+| primary as text / surface | 3.24 ❌ | 5.26 ✅ |
+| brand as text / background | 6.06 ✅ (= brandText) | 3.11 ❌ (rule 2) |
+| warning / background | 14.88 ✅ | 5.52 ✅ |
+| danger / background | 6.16 ✅ | 4.83 ✅ |
+| onDanger / danger | 6.16 ✅ | 5.38 ✅ |
+| text (white) / ember dark mid stop `#2A0F0B` | 17.92 ✅ | — |
+| text (black) / ember light mid stop `#F9D3CD` | — | 15.23 ✅ |
 
 ### Distinctness from reference
-The reference uses near-black surfaces with a red/pink CTA (FLOWS §6). getup uses indigo surfaces with an amber CTA and dark text on buttons. We never use red as a primary or brand colour; red appears only in `danger`.
+The human chose the native iOS dark base (black / `#1C1C1E`), which the reference also uses (FLOWS §6). That base is the iOS system default, not the reference's brand. getup's distinction comes from the accents: the reference's CTA is red/pink with cyan secondary; getup's CTA is **green with white text** and the brand colour is **orange with black text**. Rules that keep it distinct:
+- No red or pink CTA anywhere. Orange is never the main filled button on list/editor/settings screens.
+- No cyan/teal.
+- The ringing screen uses the `ember` gradient + sun illustration, not a flat black screen with a red button.
+- **Risk (4.1):** black base + a red-orange accent is closer to the reference than the old indigo/amber system. Keep the illustrations, icon, layouts and copy fully original.
 
 ## 3. Typography
 
@@ -112,9 +136,9 @@ All sizes scale with Dynamic Type (§9). `numeric` caps at 1.3× so the clock fi
 | 0 | flat, `background` | flat, `background` | screen |
 | 1 | `surface` + 1px `border` | `surface` + shadow `0 1 3 rgba(20,23,58,0.08)` | cards, list groups |
 | 2 | `surfaceAlt`, no border | `surface` + shadow `0 6 16 rgba(20,23,58,0.12)` | sheets, menus, toasts |
-| glow | primary shadow `0 0 24 rgba(255,159,28,0.45)` | same, at 0.30 | only the primary CTA on ringing, paywall and onboarding |
+| glow | primary shadow `0 0 24 rgba(0,126,20,0.55)` | same, at 0.35 | only the primary CTA on ringing, paywall and onboarding |
 
-Dark mode never uses black drop shadows. Depth comes from the surface colour.
+Dark mode never uses drop shadows. Depth comes from the surface colour (`#000000` → `#1C1C1E` → `#2C2C2E`).
 
 ## 5. Components
 
@@ -133,7 +157,7 @@ States, for every interactive component:
   |---|---|---|---|
   | primary | `primary` | `onPrimary` | — |
   | secondary | `surfaceAlt` | `text` | — |
-  | ghost | transparent | `primaryText` | — |
+  | ghost | transparent | `brandText` | — |
   | destructive | `danger` | `onDanger` | — |
 
 - **Sizes:**
@@ -161,14 +185,14 @@ States, for every interactive component:
 - **States:** pressed = `surfaceAlt` background; disabled.
 
 ### Toggle
-- Native `Switch`. On = `primary` track, off = `surfaceAlt` (dark) / `border` (light) track, thumb `#FFFFFF`.
+- Native `Switch`. On = `primary` (green) track, off = `surfaceAlt` (dark) / `border` (light) track, thumb `#FFFFFF`.
 - Haptic: selection on change.
 - The hit area is the whole row when it's inside a ListRow.
 
 ### TimePicker
 - A wheel picker with hour and minute columns (plus AM/PM when the locale is 12h). The selected value is in `numeric` at 0.66 scale (48pt) on `text`; values above and below are `textMuted` at 60% opacity.
 - A selection band behind the centre row: `surfaceAlt`, radius `md`.
-- Helper text under the wheel: "Rings in 7 h 20 min" in `caption` / `primaryText`. It updates live.
+- Helper text under the wheel: "Rings in 7 h 20 min" in `caption` / `brandText`. It updates live.
 - Haptic: selection tick per step.
 
 ### Sheet
@@ -184,7 +208,7 @@ States, for every interactive component:
   - Day chips are circles of 40 with a single letter.
 - **Tag** (non-interactive badge):
   - height 22, padding `sm`, radius `pill`, text `caption` 700.
-  - Variants: `pro` (`accent` fill + `#1A1206` text), `new` (`success` fill + `#0F1230` text), `neutral` (`surfaceAlt` + `textMuted`).
+  - Variants: `pro` (`brand` fill + `onBrand` text), `new` (`primary` fill + `onPrimary` text), `neutral` (`surfaceAlt` + `textMuted`).
   - Our Pro badge reads "Pro" in sentence case with a small sun icon. It must not look like the reference's "PRO" pill.
 
 ### EmptyState
@@ -194,12 +218,12 @@ States, for every interactive component:
 ### PaywallPlanCard
 - **Anatomy:** radio indicator → plan name (`bodyStrong`) + sub-line (`caption`, e.g. "$3.33/mo, billed yearly") → price (`heading`, right-aligned) → optional Tag (e.g. "7-day free trial", `pro` variant) pinned to the top edge.
 - **Default:** `surface`, 1px `border`, radius `lg`, padding `lg`.
-- **Selected:** 2px `primary` border, `dawn` gradient background, radio filled `primary`.
+- **Selected:** 2px `primary` border, `brandTint` background, radio filled `primary` with a white check.
 - **Rules:** prices always come from RevenueCat (never hard-coded). The trial terms line is below the CTA in `caption`.
 
 ### ProgressBar
-- **Linear:** height 6, radius `pill`, track `surfaceAlt`, fill `primary`. Used for onboarding "1/3" and mission progress. Onboarding shows a label "1 of 3" in `caption`.
-- **Countdown ring** (mission time limit, Wake-up check): circular, stroke 6, track `surfaceAlt`. The fill is `primary`, and it switches to `warning` in the last 5 s. The number in the centre is `numericSm`.
+- **Linear:** height 6, radius `pill`, track `surfaceAlt`, fill `brand`. Used for onboarding "1/3" and mission progress. Onboarding shows a label "1 of 3" in `caption`.
+- **Countdown ring** (mission time limit, Wake-up check): circular, stroke 6, track `surfaceAlt`. The fill is `brand`, and it switches to `warning` in the last 5 s. The number in the centre is `numericSm`.
 - Fill changes animate with `base` duration, `standard` easing.
 
 ## 6. Motion
@@ -230,36 +254,36 @@ States, for every interactive component:
 
 ## 7. Iconography & illustration
 
-- **Icons:** SF Symbols via `expo-symbols`. Weight `semibold`, size 20 / 24 / 28. Colour `text` or `textMuted`; `primaryText` when active. The tab bar uses filled symbols when selected.
-- **Mission icons:** each mission has its own symbol, shown in a 40×40 `surfaceAlt` tile with radius `md`:
+- **Icons:** SF Symbols via `expo-symbols`. Weight `semibold`, size 20 / 24 / 28. Colour `text`, `textMuted`, or `brand` for highlighted/active icons. The tab bar uses filled symbols when selected.
+- **Mission icons:** each mission has its own symbol in `brand`, shown in a 40×40 `surfaceAlt` tile with radius `md`:
   - Math: `function`
   - Typing: `keyboard`
   - Shake: `iphone.radiowaves.left.and.right`
   - Memory tiles: `square.grid.3x3.fill`
-- **Illustration style:** flat geometric scenes built from horizon lines, a rising sun disc, stars and soft hills. Palette is limited to indigo, `accent`, `primary` and `success`. No outlines, no gradients inside shapes except `sunrise` skies, no characters in v1.
+- **Illustration style:** flat geometric scenes built from horizon lines, a rising sun disc, stars and soft hills. Palette is limited to `brand` orange (sun), tints of it, `surface`/`surfaceAlt` greys and `primary` green (hills). No outlines, no gradients inside shapes except `ember` skies, no characters in v1.
 - **Mascot (v4):** a small round sun with sleepy half-closed eyes. It's designed in v4.
 - **Must not resemble the reference:**
   - no mascot in the reference's style (FLOWS #90–#104);
   - no 3D or glossy pet style;
   - no red alarm-clock icon;
   - no screenshot-traced layouts;
-  - an original app icon: a sun disc rising over a horizon line on indigo.
+  - the app icon is the original bell mark in `docs/brand/` (§1), not a clock face.
 - **Sounds:** an original or licensed (royalty-free, commercial) set. Names are descriptive ("Morning birds", "Rising chime"). Never reuse the reference's sound names.
 
 ## 8. Layout patterns
 
 - **Tab bar (v1):** Alarm, Settings.
   - Background `surface` with a top `border` hairline.
-  - Active item uses `primaryText`; inactive uses `textMuted`.
+  - Active item: icon in `brand`, label in `brandText`; inactive uses `textMuted`.
   - Label in `caption`.
 - **Navigation:** large title (`title`) on the tab roots; standard title (`heading`) on pushed screens. Back is a chevron; modals close with an X at the top right.
 - **Sticky CTA:** primary actions on onboarding, mission setup, editor Save and the paywall sit at the bottom, on a `background` fade.
 - **Ringing screen:**
-  - full-bleed `sunrise` gradient;
+  - full-bleed `ember` gradient with an orange sun disc (pulsing with `ringPulse`);
   - clock in `numeric`, date in `heading`;
   - label in `body`;
   - "Start mission" uses primary `lg` + glow;
-  - Snooze is secondary `lg`, with a count Tag.
+  - Snooze is secondary `lg`, with a count Tag (`pro`-style orange fill, black text).
 - **Mission screens:**
   - top bar: progress ("2 of 3") on the left, countdown ring in the centre, mute toggle on the right;
   - the body in between;
@@ -269,7 +293,7 @@ States, for every interactive component:
 
 - **Dynamic Type:** all text tokens scale (`allowFontScaling` on). Layouts must reflow up to AX3, so test at the largest size. `numeric` caps at 1.3×. Rows grow in height; text is never truncated in a way that hides meaning.
 - **Tap targets:** at least 44×44pt everywhere, including chips (36 visual height + hitSlop), the close X and steppers.
-- **Contrast:** use only the token pairs in §2. Don't put `accent` text on light backgrounds.
+- **Contrast:** use only the token pairs in §2 marked ✅, and follow the §2 text rules (no green text in dark, no `brand` small text in light).
 - **VoiceOver:**
   - Every icon-only button has a `accessibilityLabel` that names the action: "Delete alarm", not "Trash".
   - An AlarmCard reads as one element: "7:30 AM, Weekdays, Math mission, on". The toggle state is exposed as `accessibilityState`.

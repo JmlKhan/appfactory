@@ -14,7 +14,7 @@ Output: screens under `app/app/` (Expo Router) + reusable components under `app/
 ## Rules
 - Use ONLY tokens from theme.ts. No raw hex, no magic numbers for spacing/size/radius.
 - Build shared components first (Button, Card, ListRow…) exactly as specified in DESIGN.md, then screens from them.
-- Every string via i18n (`t('key')`) with uz, ru and en entries. Uzbek is the default.
+- Every string via i18n (`t('key')`) with an en entry (the default) plus every other locale the app ships.
 - Support light and dark mode and Dynamic Type.
 - Mock data lives in `app/src/mocks/`. No real services yet (no RevenueCat, no AlarmKit) — stub them behind an interface.
 - Add a hidden dev menu route `/_gallery` that links to every screen and every state (empty, loading, error, premium/free) so the human can review all of them on device.

@@ -11,9 +11,9 @@ Outputs: `docs/DESIGN.md` and `app/src/theme/theme.ts` (tokens only — the Arch
 ## Steps
 1. Propose 2 brand directions in ≤6 lines each (name ideas, mood, palette, type). Recommend one. Wait for the human to pick.
 2. Write DESIGN.md:
-   - **Brand** — name, personality (3 words), tone of voice per language (uz/ru/en), do/don't examples.
+   - **Brand** — name, personality (3 words), tone of voice for en (plus any later languages BRIEF.md schedules), do/don't examples.
    - **Color** — semantic tokens for light AND dark: background, surface, surfaceAlt, text, textMuted, primary, onPrimary, accent, success, warning, danger, border. Hex values. Check text/background contrast ≥ 4.5:1 and say so.
-   - **Typography** — font family (must be free for commercial use and support Uzbek Latin + Cyrillic), scale: display, title, heading, body, caption, numeric (for clock digits). Sizes in pt, weights, line heights.
+   - **Typography** — font family (must be free for commercial use and support Latin Extended + Cyrillic, for later locales), scale: display, title, heading, body, caption, numeric (for clock digits). Sizes in pt, weights, line heights.
    - **Spacing & shape** — 4-pt grid scale, radius scale, elevation/shadow rules.
    - **Components** — Button (primary/secondary/ghost/destructive, sizes, states), Card, ListRow, Toggle, TimePicker, Sheet, Tag/Chip, EmptyState, PaywallPlanCard, ProgressBar. For each: anatomy, states, token usage.
    - **Motion** — durations and easing; haptics usage.

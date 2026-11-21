@@ -6,10 +6,12 @@ export type ColorScheme = {
   surfaceAlt: string;
   text: string;
   textMuted: string;
-  primary: string;
+  primary: string; // green — action + selection
   onPrimary: string;
-  primaryText: string;
-  accent: string;
+  brand: string; // orange — identity + attention
+  onBrand: string;
+  brandText: string;
+  brandTint: string;
   success: string;
   warning: string;
   danger: string;
@@ -19,50 +21,52 @@ export type ColorScheme = {
 };
 
 export const colors: { light: ColorScheme; dark: ColorScheme } = {
+  // Dark: never use primary (green) as text — 3.99:1 on black. Success text uses `text`.
   dark: {
-    background: '#0F1230',
-    surface: '#1A1F4A',
-    surfaceAlt: '#252B5E',
-    text: '#F5F3FF',
-    textMuted: '#A9ADD6',
-    primary: '#FF9F1C',
-    onPrimary: '#1A1206',
-    primaryText: '#FFB347',
-    accent: '#FFC8A2',
-    success: '#3DDC97',
-    warning: '#FFD166',
-    danger: '#FF6B6B',
-    onDanger: '#1A1206',
-    border: '#2F3670',
-    overlay: 'rgba(6,8,24,0.64)',
+    background: '#000000',
+    surface: '#1C1C1E',
+    surfaceAlt: '#2C2C2E',
+    text: '#FFFFFF',
+    textMuted: '#98989F',
+    primary: '#007E14',
+    onPrimary: '#FFFFFF',
+    brand: '#E26150',
+    onBrand: '#000000',
+    brandText: '#E26150', // not on surfaceAlt (4.02:1)
+    brandTint: 'rgba(226,97,80,0.16)',
+    success: '#007E14',
+    warning: '#FFD60A',
+    danger: '#FF453A',
+    onDanger: '#000000',
+    border: '#38383A',
+    overlay: 'rgba(0,0,0,0.60)',
   },
+  // Light: never use brand (orange) as small text — 3.47:1 on white. Use brandText.
   light: {
-    background: '#FFF8F0',
+    background: '#F2F2F7',
     surface: '#FFFFFF',
-    surfaceAlt: '#FFEEDC',
-    text: '#14173A',
-    textMuted: '#555A80',
-    primary: '#FF9F1C',
-    onPrimary: '#1A1206',
-    primaryText: '#A84E00',
-    accent: '#E8743B', // decorative only in light — fails AA as text
-    success: '#17744B',
+    surfaceAlt: '#E5E5EA',
+    text: '#000000',
+    textMuted: '#636366',
+    primary: '#007E14',
+    onPrimary: '#FFFFFF',
+    brand: '#E26150',
+    onBrand: '#000000',
+    brandText: '#B23A2A',
+    brandTint: 'rgba(226,97,80,0.12)',
+    success: '#007E14',
     warning: '#8A5600',
-    danger: '#B32D2D',
+    danger: '#D70015',
     onDanger: '#FFFFFF',
-    border: '#EADFD2',
-    overlay: 'rgba(20,23,58,0.40)',
+    border: '#C6C6C8',
+    overlay: 'rgba(0,0,0,0.30)',
   },
 };
 
 export const gradients = {
-  sunrise: {
-    colors: ['#0F1230', '#3A2A6B', '#FF7A45', '#FFB347'] as const,
-    locations: [0, 0.45, 0.8, 1] as const,
-  },
-  dawn: {
-    colors: ['#1A1F4A', '#2A2560'] as const,
-    locations: [0, 1] as const,
+  ember: {
+    dark: { colors: ['#000000', '#2A0F0B', '#E26150'] as const, locations: [0, 0.5, 1] as const },
+    light: { colors: ['#FFFFFF', '#F9D3CD', '#E26150'] as const, locations: [0, 0.5, 1] as const },
   },
 };
 
@@ -135,15 +139,15 @@ const none: Shadow = { shadowColor: '#000000', shadowOffset: { width: 0, height:
 export const shadow: { light: Record<'level0' | 'level1' | 'level2' | 'glow', Shadow>; dark: Record<'level0' | 'level1' | 'level2' | 'glow', Shadow> } = {
   light: {
     level0: none,
-    level1: { shadowColor: '#14173A', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 3 },
-    level2: { shadowColor: '#14173A', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.12, shadowRadius: 16 },
-    glow: { shadowColor: '#FF9F1C', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.3, shadowRadius: 24 },
+    level1: { shadowColor: '#000000', shadowOffset: { width: 0, height: 1 }, shadowOpacity: 0.08, shadowRadius: 3 },
+    level2: { shadowColor: '#000000', shadowOffset: { width: 0, height: 6 }, shadowOpacity: 0.12, shadowRadius: 16 },
+    glow: { shadowColor: '#007E14', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.35, shadowRadius: 24 },
   },
   dark: {
     level0: none,
     level1: none,
     level2: none,
-    glow: { shadowColor: '#FF9F1C', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.45, shadowRadius: 24 },
+    glow: { shadowColor: '#007E14', shadowOffset: { width: 0, height: 0 }, shadowOpacity: 0.55, shadowRadius: 24 },
   },
 };
 

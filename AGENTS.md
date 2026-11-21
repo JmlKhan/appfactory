@@ -15,7 +15,7 @@ Read this file fully before acting. Your role skill (`/skill:role-*`) tells you 
 - Expo (latest SDK), Expo Router, TypeScript strict
 - iOS only for now. Widgets: Swift via `expo-apple-targets`. Alarms: AlarmKit (iOS 26+) — see SPIKE.md.
 - RevenueCat for purchases, PostHog for analytics, no backend by default
-- Localization: uz (default), ru, en — every user-facing string goes through i18n, never hard-coded
+- Localization: **en (default)**. Other locales (e.g. ru, uz) are added only when the app's BRIEF.md schedules them. Every user-facing string goes through i18n, never hard-coded
 - Builds: EAS Build -> EAS Submit -> TestFlight
 
 ## Where things live
