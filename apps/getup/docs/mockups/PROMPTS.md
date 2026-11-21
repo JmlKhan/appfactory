@@ -126,7 +126,7 @@ Purpose: pick what you must do to turn the alarm off.
 
 4. ALARM RINGING (full-screen, in-app)
 Purpose: impossible to ignore, easy to act on while half-asleep.
-- Full-bleed ember gradient; a pulsing orange sun disc in the lower part. White text only in the top half (dark); black text in light.
+- Full-bleed ember gradient; an orange half-disc sun rising on a thin horizon line in the middle, with 5 short rays fanning above it and a soft glow (no hard edges), pulsing slowly. White text only in the top half (dark); black text in light.
 - Clock "7:15" in numeric with "AM" small, date "Thursday, November 20" in heading, label "Work" in body. All in the top 45%.
 - Primary lg button with glow: "Start mission".
 - Secondary lg button: "Snooze · 5 min" with a count tag "3 left".
